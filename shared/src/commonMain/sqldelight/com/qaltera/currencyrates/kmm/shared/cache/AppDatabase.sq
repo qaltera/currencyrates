@@ -1,0 +1,18 @@
+CREATE TABLE Rate (
+    name TEXT NOT NULL PRIMARY KEY,
+    value REAL AS Float NOT NULL
+);
+
+insertRate:
+INSERT INTO Rate(name, value)
+VALUES(?, ?);
+
+removeAllRates:
+DELETE FROM Rate;
+
+selectRateByName:
+SELECT * FROM Rate
+WHERE name = ?;
+
+selectAllRates:
+SELECT * FROM Rate;
