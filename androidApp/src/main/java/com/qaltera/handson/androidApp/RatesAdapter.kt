@@ -24,7 +24,7 @@ class RatesAdapter(var rates: List<CurrencyRate>) : RecyclerView.Adapter<RatesAd
 
     inner class RateViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val currencyNameTextView = itemView.findViewById<TextView>(R.id.currencyName)
-        private val currencyRateTextView = itemView.findViewById<TextView>(R.id.currencyRate)
+        private val currencyRateTextView = itemView.findViewById<TextView>(R.id.currencyRateValue)
 
         fun bindData(rate: CurrencyRate) {
             val ctx = itemView.context

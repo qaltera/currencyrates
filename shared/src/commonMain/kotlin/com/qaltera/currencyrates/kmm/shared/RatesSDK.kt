@@ -33,7 +33,7 @@ class RatesSDK (databaseDriverFactory: DatabaseDriverFactory) {
                 val cbrfRates =
                     fromCbrfMarketData(cbrfResponse.cbrf)
 
-                val result = moexRates + cbrfRates
+                val result = cbrfRates + moexRates
 
                 database.clearDatabase()
                 result.forEach { rate -> database.insertRate(rate)}

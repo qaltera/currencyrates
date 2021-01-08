@@ -62,6 +62,16 @@ data class CurrencyRate(
     val name: String
 )
 
+enum class Source(source: String) {
+    MOEX("moex"),
+    CBRF("cbrf")
+}
+
+enum class CurrencyName(name: String) {
+    USD("usd"),
+    EUR("eur")
+}
+
 
 
 
