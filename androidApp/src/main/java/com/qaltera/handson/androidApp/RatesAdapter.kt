@@ -30,13 +30,12 @@ class RatesAdapter(var rates: List<CurrencyRate>) : RecyclerView.Adapter<RatesAd
 
         fun bindData(rate: CurrencyRate) {
             val ctx = itemView.context
-            currencyNameTextView.text = ctx.getString(R.string.currency_name_field, rate.name)
-            currencyRateTextView.text = ctx.getString(R.string.currency_rate_field,
-                rate.rate.toString())
+            currencyNameTextView.text = rate.name.toString()
+            currencyRateTextView.text = rate.rate.toString()
             currencySourceTextView.text =
                 ctx.getString(
                     if (rate.source == Source.MOEX) {
-                        R.string.moex
+                        R.string.exchange
                     } else {
                         R.string.cbrf
                     }

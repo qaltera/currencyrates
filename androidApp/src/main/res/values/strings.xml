@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">KmmApp</string>
     <string name="cbrf">CB RF</string>
-    <string name="moex">MOEX</string>
+    <string name="exchange">MOEX</string>
 
     <string name="currency_name_field">Currency name: %s</string>
     <string name="currency_rate_field">Currency rate: %s</string>
