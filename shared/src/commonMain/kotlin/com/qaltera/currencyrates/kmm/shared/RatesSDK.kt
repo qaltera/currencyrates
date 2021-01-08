@@ -3,9 +3,11 @@ package com.qaltera.currencyrates.kmm.shared
 import com.github.aakira.napier.Napier
 import com.qaltera.currencyrates.kmm.shared.cache.Database
 import com.qaltera.currencyrates.kmm.shared.cache.DatabaseDriverFactory
+import com.qaltera.currencyrates.kmm.shared.entity.CurrencyName
 import com.qaltera.currencyrates.kmm.shared.entity.CurrencyRate
 import com.qaltera.currencyrates.kmm.shared.entity.MarketData
 import com.qaltera.currencyrates.kmm.shared.entity.RateSet
+import com.qaltera.currencyrates.kmm.shared.entity.Source
 import com.qaltera.currencyrates.kmm.shared.network.RatesApi
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -49,11 +51,13 @@ class RatesSDK (databaseDriverFactory: DatabaseDriverFactory) {
             listOf(
                 CurrencyRate(
                     marketData.data[0][6]?.floatValue ?: 0f,
-                    "eur_cbrf"
+                    CurrencyName.EUR,
+                    Source.CBRF
                 ),
                 CurrencyRate(
                     marketData.data[0][3]?.floatValue ?: 0f,
-                    "usd_cbrf"
+                    CurrencyName.USD,
+                    Source.CBRF
                 )
             )
         }
@@ -65,11 +69,13 @@ class RatesSDK (databaseDriverFactory: DatabaseDriverFactory) {
             listOf(
                 CurrencyRate(
                     marketData.data[0][8]?.floatValue ?: 0f,
-                    "eur_moex"
+                    CurrencyName.EUR,
+                    Source.MOEX
                 ),
                 CurrencyRate(
                     marketData.data[1][8]?.floatValue ?: 0f,
-                    "usd_moex"
+                    CurrencyName.USD,
+                    Source.MOEX
                 )
             )
         }

@@ -2,7 +2,9 @@ package com.qaltera.currencyrates.kmm.shared.cache
 
 import com.qaltera.currencyrates.kmm.shared.cache.AppDatabase
 import com.qaltera.currencyrates.kmm.shared.cache.DatabaseDriverFactory
+import com.qaltera.currencyrates.kmm.shared.entity.CurrencyName
 import com.qaltera.currencyrates.kmm.shared.entity.CurrencyRate
+import com.qaltera.currencyrates.kmm.shared.entity.Source
 
 internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
     private val database = AppDatabase(databaseDriverFactory.createDriver())
@@ -20,17 +22,20 @@ internal class Database(databaseDriverFactory: DatabaseDriverFactory) {
 
     private fun mapRateSelecting(
         name: String,
+        source: String,
         value: Float
     ): CurrencyRate {
         return CurrencyRate(
-            name = name,
+            name = CurrencyName.valueOf(name),
+            source = Source.valueOf(source),
             rate = value
         )
     }
 
     fun insertRate(rate: CurrencyRate) {
         dbQuery.insertRate(
-            name = rate.name,
+            name = rate.name.name,
+            source = rate.source.name,
             value = rate.rate
         )
     }

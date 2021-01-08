@@ -13,14 +13,25 @@
         android:layout_height="wrap_content"
         android:paddingBottom="16dp">
 
+
         <TextView
-            android:id="@+id/currencyName"
-            android:layout_width="0dp"
+            android:id="@+id/currencySource"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBaseline_toBaselineOf="@id/currencyName"
+            app:layout_constraintEnd_toStartOf="@id/currencyName"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/currencyName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toEndOf="@id/currencySource"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/currencyRateValue"/>
 
         <TextView
             android:id="@+id/currencyRateValue"
@@ -29,6 +40,7 @@
             android:layout_margin="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/currencyName" />
 
 

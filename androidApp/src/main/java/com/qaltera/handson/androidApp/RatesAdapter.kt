@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.qaltera.currencyrates.kmm.shared.entity.CurrencyRate
+import com.qaltera.currencyrates.kmm.shared.entity.Source
 
 class RatesAdapter(var rates: List<CurrencyRate>) : RecyclerView.Adapter<RatesAdapter
 .RateViewHolder>() {
@@ -25,12 +26,21 @@ class RatesAdapter(var rates: List<CurrencyRate>) : RecyclerView.Adapter<RatesAd
     inner class RateViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val currencyNameTextView = itemView.findViewById<TextView>(R.id.currencyName)
         private val currencyRateTextView = itemView.findViewById<TextView>(R.id.currencyRateValue)
+        private val currencySourceTextView = itemView.findViewById<TextView>(R.id.currencySource)
 
         fun bindData(rate: CurrencyRate) {
             val ctx = itemView.context
             currencyNameTextView.text = ctx.getString(R.string.currency_name_field, rate.name)
             currencyRateTextView.text = ctx.getString(R.string.currency_rate_field,
                 rate.rate.toString())
+            currencySourceTextView.text =
+                ctx.getString(
+                    if (rate.source == Source.MOEX) {
+                        R.string.moex
+                    } else {
+                        R.string.cbrf
+                    }
+                )
         }
     }
 }

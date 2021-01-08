@@ -1,18 +1,20 @@
 CREATE TABLE Rate (
-    name TEXT NOT NULL PRIMARY KEY,
-    value REAL AS Float NOT NULL
+    name TEXT NOT NULL,
+    source TEXT NOT NULL,
+    value REAL AS Float NOT NULL,
+    PRIMARY KEY (name, source)
 );
 
 insertRate:
-INSERT INTO Rate(name, value)
-VALUES(?, ?);
+INSERT INTO Rate(name, source, value)
+VALUES(?, ?, ?);
 
 removeAllRates:
 DELETE FROM Rate;
 
 selectRateByName:
 SELECT * FROM Rate
-WHERE name = ?;
+WHERE name = ? AND source = ?;
 
 selectAllRates:
 SELECT * FROM Rate;
