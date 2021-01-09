@@ -7,4 +7,5 @@
     <color name="colorSuccessful">#4BB543</color>
     <color name="colorUnsuccessful">#FC100D</color>
     <color name="colorNoData">#615F5F</color>
+    <color name="white_transparent">#CCFFFFFF</color>
 </resources>
