@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Курс рубля</string>
     <string name="cbrf_rate">Курс ЦБ РФ</string>
     <string name="exchange_rate">Биржевой курс</string>
     <string name="updated_at">Обновлено %s</string>

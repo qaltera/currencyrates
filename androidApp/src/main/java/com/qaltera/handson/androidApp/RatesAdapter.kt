@@ -12,6 +12,7 @@ import com.qaltera.currencyrates.androidApp.RatesAdapter.RateViewHolder.CbrfRate
 import com.qaltera.currencyrates.androidApp.RatesAdapter.RateViewHolder.MoexRateViewHolder
 import com.qaltera.currencyrates.kmm.shared.entity.CurrencyRateSet
 import com.qaltera.currencyrates.kmm.shared.entity.Source
+import java.util.Date
 
 class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<RatesAdapter
 .RateViewHolder>() {
@@ -110,7 +111,8 @@ class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<Rate
 
                 updatedAt.text = String.format(
                     ctx.getString(R.string.updated_at),
-                    DateUtils.formatDateTime(ctx, System.currentTimeMillis(), 0)
+                    DateUtils.formatDateTime(ctx, System.currentTimeMillis(),
+                        DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME)
                 )
             }
 

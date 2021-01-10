@@ -1,10 +1,13 @@
 package com.qaltera.currencyrates.androidApp
 
+import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -19,6 +22,7 @@ import kotlinx.coroutines.cancel
 class MainActivity : AppCompatActivity() {
     private val mainScope = MainScope()
 
+    private lateinit var toolbar: Toolbar
     private lateinit var ratesList: RecyclerView
     private lateinit var progressBarView: FrameLayout
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
@@ -29,12 +33,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        title = "Currency rates"
+        title = getString(R.string.app_name)
         setContentView(R.layout.activity_main)
+        supportActionBar?.setBackgroundDrawable(
+                ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimaryDark))
+            );
 
         ratesList = findViewById(R.id.ratesListRv)
+        toolbar = findViewById(R.id.toolbar)
         progressBarView = findViewById(R.id.progressBar)
         swipeRefreshLayout = findViewById(R.id.swipeContainer)
+
+        toolbar.title = title
 
         ratesList.adapter = ratesAdapter
         ratesList.layoutManager = LinearLayoutManager(this)

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">KmmApp</string>
+    <string name="app_name">Rouble rate</string>
     <string name="cbrf_rate">CB RF rate</string>
     <string name="exchange_rate">MOEX rate</string>
     <string name="usd" translatable="false">USD</string>
