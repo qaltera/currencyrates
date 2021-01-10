@@ -51,7 +51,7 @@ class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<Rate
                 updatedAtTextView.text = String.format(ctx.getString(R.string.updated_at),
                     DateUtils.formatDateTime(ctx, System.currentTimeMillis(), 0))
             } else {
-                updatedAtTextView.visibility = View.GONE
+                updatedAtTextView.visibility = View.INVISIBLE
             }
         }
     }
