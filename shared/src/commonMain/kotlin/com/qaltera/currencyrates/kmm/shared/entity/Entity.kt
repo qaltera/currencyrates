@@ -61,7 +61,8 @@ data class CurrencyRateSet(
 data class CurrencyRate(
     val rate: Float,
     val name: CurrencyName,
-    val source: Source
+    val source: Source,
+    val change: Float? = null
 )
 
 enum class Source(name: String) {

@@ -1,10 +1,12 @@
 package com.qaltera.currencyrates.androidApp
 
+import android.content.Context
 import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.qaltera.currencyrates.kmm.shared.entity.CurrencyRateSet
 import com.qaltera.currencyrates.kmm.shared.entity.Source
@@ -30,6 +32,8 @@ class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<Rate
         private val currencyValue1TextView = itemView.findViewById<TextView>(R.id.currencyValue1)
         private val currencyName2TextView = itemView.findViewById<TextView>(R.id.currencyName2)
         private val currencyValue2TextView = itemView.findViewById<TextView>(R.id.currencyValue2)
+        private val changeValue1TextView = itemView.findViewById<TextView>(R.id.changeValue1)
+        private val changeValue2TextView = itemView.findViewById<TextView>(R.id.changeValue2)
         private val updatedAtTextView = itemView.findViewById<TextView>(R.id.updatedAt)
 
         fun bindData(rate: CurrencyRateSet) {
@@ -44,8 +48,14 @@ class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<Rate
                 )
             currencyName1TextView.text = ctx.getString(R.string.usd)
             currencyName2TextView.text = ctx.getString(R.string.eur)
-            currencyValue1TextView.text = rate.usdRate.rate.toString()
-            currencyValue2TextView.text = rate.eurRate.rate.toString()
+            colorValueWithChange(currencyValue1TextView,
+                rate.usdRate.change, ctx)
+            colorValueWithChange(currencyValue2TextView,
+                rate.eurRate.change, ctx)
+            currencyValue1TextView.text = formatValue(rate.usdRate.rate)
+            currencyValue2TextView.text = formatValue(rate.eurRate.rate)
+            changeValue1TextView.text = formatValue(rate.usdRate.change, needSign = true)
+            changeValue2TextView.text = formatValue(rate.eurRate.change, needSign = true)
             if (rate.source == Source.MOEX) {
                 updatedAtTextView.visibility = View.VISIBLE
                 updatedAtTextView.text = String.format(ctx.getString(R.string.updated_at),
@@ -53,6 +63,30 @@ class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<Rate
             } else {
                 updatedAtTextView.visibility = View.INVISIBLE
             }
+        }
+
+        private fun formatValue(number: Float?, needSign: Boolean = false): String? {
+            return number?.let {
+                val pattern = if (needSign) {
+                    "%+.2f"
+                } else {
+                    "%.2f"
+                }
+                String.format(pattern, number)
+            }
+        }
+
+        private fun colorValueWithChange(
+            view: TextView, change: Float?, ctx: Context
+        ) {
+            val textColorId = when {
+                change == null || change == 0F -> R.color.colorPrimaryText
+                change > 0 -> R.color.green
+                else -> R.color.red
+            }
+            view.setTextColor(
+                ContextCompat.getColor(ctx, textColorId)
+            )
         }
     }
 }

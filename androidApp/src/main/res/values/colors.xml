@@ -5,6 +5,9 @@
     <color name="colorAccent">#80cbc4</color>
     <color name="colorPrimaryText">#FFFFFF</color>
 
+    <color name="red">#FF0000</color>
+    <color name="green">#00FF00</color>
+
     <color name="lime">#dce775</color>
     <color name="purple">#e1bee7</color>
 

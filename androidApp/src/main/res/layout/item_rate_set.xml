@@ -55,6 +55,17 @@
             tools:text="75.00"/>
 
         <TextView
+            android:id="@+id/changeValue1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toEndOf="@id/currencyValue1"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintBottom_toTopOf="@id/currencyName2"
+            tools:text="+1.11"
+            />
+
+        <TextView
             android:id="@+id/currencyName2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -74,6 +85,15 @@
             app:layout_constraintStart_toEndOf="@id/currencyName2"
             app:layout_constraintTop_toBottomOf="@id/currencyValue1"
             tools:text="90.00"
+            />
+        <TextView
+            android:id="@+id/changeValue2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toEndOf="@id/currencyValue2"
+            app:layout_constraintTop_toBottomOf="@id/currencyValue1"
+            tools:text="+0.25"
             />
 
         <TextView

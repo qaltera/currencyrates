@@ -53,13 +53,13 @@ class RatesSDK (databaseDriverFactory: DatabaseDriverFactory) {
 
                 val result = listOf(
                     CurrencyRateSet(
-                        usdRate = cbrfRates[0],
-                        eurRate = cbrfRates[1],
+                        usdRate = cbrfRates[1],
+                        eurRate = cbrfRates[0],
                         source = Source.CBRF
                     ),
                     CurrencyRateSet(
-                        usdRate = moexRates[0],
-                        eurRate = moexRates[1],
+                        usdRate = moexRates[1],
+                        eurRate = moexRates[0],
                         source = Source.MOEX
                     )
                 )
@@ -98,14 +98,16 @@ class RatesSDK (databaseDriverFactory: DatabaseDriverFactory) {
             println("size=" + marketData.data[0].size)
             listOf(
                 CurrencyRate(
-                    marketData.data[0][8]?.floatValue ?: 0f,
-                    CurrencyName.EUR,
-                    Source.MOEX
+                    rate = marketData.data[0][8]?.floatValue ?: 0f,
+                    name = CurrencyName.EUR,
+                    source = Source.MOEX,
+                    change = marketData.data[0][28]?.floatValue
                 ),
                 CurrencyRate(
-                    marketData.data[1][8]?.floatValue ?: 0f,
-                    CurrencyName.USD,
-                    Source.MOEX
+                    rate = marketData.data[1][8]?.floatValue ?: 0f,
+                    name = CurrencyName.USD,
+                    source = Source.MOEX,
+                    change = marketData.data[1][28]?.floatValue
                 )
             )
         }
