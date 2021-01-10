@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">KmmApp</string>
-    <string name="cbrf">CB RF</string>
-    <string name="exchange">MOEX</string>
+    <string name="cbrf_rate">CB RF rate</string>
+    <string name="exchange_rate">MOEX rate</string>
+    <string name="usd" translatable="false">USD</string>
+    <string name="eur" translatable="false">EUR</string>
 
-    <string name="currency_name_field">Currency name: %s</string>
-    <string name="currency_rate_field">Currency rate: %s</string>
+    <string name="updated_at">Updated at %s</string>
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="cbrf">ЦБ РФ</string>
-    <string name="exchange">Биржа</string>
+    <string name="cbrf_rate">Курс ЦБ РФ</string>
+    <string name="exchange_rate">Биржевой курс</string>
+    <string name="updated_at">Обновлено %s</string>
 </resources>

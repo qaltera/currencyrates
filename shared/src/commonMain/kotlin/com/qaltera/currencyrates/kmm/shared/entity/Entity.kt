@@ -52,9 +52,10 @@ data class Value(
     }
 }
 
-data class RateSet(
-    val moexRates: List<CurrencyRate>,
-    val cbrfRates: List<CurrencyRate>
+data class CurrencyRateSet(
+    val usdRate: CurrencyRate,
+    val eurRate: CurrencyRate,
+    val source: Source
 )
 
 data class CurrencyRate(
@@ -63,7 +64,7 @@ data class CurrencyRate(
     val source: Source
 )
 
-enum class Source(source: String) {
+enum class Source(name: String) {
     MOEX("moex"),
     CBRF("cbrf")
 }
