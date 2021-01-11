@@ -36,14 +36,14 @@
             android:layout_marginTop="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintBaseline_toBaselineOf="@id/currencyValue1"
-            app:layout_constraintEnd_toStartOf="@id/currencyValue1"
+            app:layout_constraintBaseline_toBaselineOf="@id/currencyValueToday1"
+            app:layout_constraintEnd_toStartOf="@id/currencyValueToday1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title"
             tools:text="USD"/>
 
         <TextView
-            android:id="@+id/currencyValue1"
+            android:id="@+id/currencyValueToday1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
@@ -55,27 +55,45 @@
             tools:text="75.00"/>
 
         <TextView
+            android:id="@+id/currencyValueTomorrow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toEndOf="@id/currencyValueToday1"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintBottom_toTopOf="@id/currencyName2"
+            tools:text="+1.11"
+            />
+
+        <TextView
             android:id="@+id/currencyName2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            app:layout_constraintBaseline_toBaselineOf="@id/currencyValue2"
-            app:layout_constraintEnd_toStartOf="@id/currencyValue2"
+            app:layout_constraintBaseline_toBaselineOf="@id/currencyValueToday2"
+            app:layout_constraintEnd_toStartOf="@id/currencyValueToday2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/currencyName1"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="EUR"
-            android:paddingBottom="8dp"/>
+            tools:text="EUR"/>
 
         <TextView
-            android:id="@+id/currencyValue2"
+            android:id="@+id/currencyValueToday2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             app:layout_constraintStart_toEndOf="@id/currencyName2"
-            app:layout_constraintTop_toBottomOf="@id/currencyValue1"
+            app:layout_constraintTop_toBottomOf="@id/currencyValueToday1"
             tools:text="90.00"
-            android:paddingBottom="8dp"
+            />
+        <TextView
+            android:id="@+id/currencyValueTomorrow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toEndOf="@id/currencyValueToday2"
+            app:layout_constraintTop_toBottomOf="@id/currencyValueToday1"
+            tools:text="+0.25"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

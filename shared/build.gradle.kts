@@ -40,6 +40,7 @@ kotlin {
     val sqlDelightVersion: String by project
     val coroutinesVersion = "1.3.9-native-mt"
     val napierVersion = "1.4.1"
+    val klockVersion = "2.0.3"
 
     sourceSets {
         val commonMain by getting {
@@ -50,6 +51,7 @@ kotlin {
                 implementation("io.ktor:ktor-client-serialization:$ktorVersion")
                 implementation("com.squareup.sqldelight:runtime:$sqlDelightVersion")
                 implementation("com.github.aakira:napier:$napierVersion")
+                implementation("com.soywiz.korlibs.klock:klock:$klockVersion")
             }
         }
         val commonTest by getting {

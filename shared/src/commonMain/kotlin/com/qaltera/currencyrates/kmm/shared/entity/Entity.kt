@@ -58,12 +58,19 @@ data class CurrencyRateSet(
     val source: Source
 )
 
-data class CurrencyRate(
-    val rate: Float,
-    val name: CurrencyName,
-    val source: Source,
-    val change: Float? = null
-)
+sealed class CurrencyRate {
+    data class CbrfCurrencyRate(
+        val rateToday: Float,
+        val rateTomorrow: Float?,
+        val name: CurrencyName
+    ): CurrencyRate()
+
+    data class MoexCurrencyRate(
+        val rate: Float,
+        val name: CurrencyName,
+        val change: Float? = null
+    ): CurrencyRate()
+}
 
 enum class Source(name: String) {
     MOEX("moex"),

@@ -10,9 +10,9 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.qaltera.currencyrates.androidApp.RatesAdapter.RateViewHolder.CbrfRateViewHolder
 import com.qaltera.currencyrates.androidApp.RatesAdapter.RateViewHolder.MoexRateViewHolder
+import com.qaltera.currencyrates.kmm.shared.entity.CurrencyRate
 import com.qaltera.currencyrates.kmm.shared.entity.CurrencyRateSet
 import com.qaltera.currencyrates.kmm.shared.entity.Source
-import java.util.Date
 
 class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<RatesAdapter
 .RateViewHolder>() {
@@ -65,9 +65,13 @@ class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<Rate
         class CbrfRateViewHolder(itemView: View) : RateViewHolder(itemView) {
             private val currencyTitle = itemView.findViewById<TextView>(R.id.title)
             private val currencyName1 = itemView.findViewById<TextView>(R.id.currencyName1)
-            private val currencyValue1 = itemView.findViewById<TextView>(R.id.currencyValue1)
+            private val currencyValueToday1 = itemView.findViewById<TextView>(R.id.currencyValueToday1)
+            private val currencyValueTomorrow1 = itemView.findViewById<TextView>(R.id
+                .currencyValueTomorrow1)
             private val currencyName2 = itemView.findViewById<TextView>(R.id.currencyName2)
-            private val currencyValue2 = itemView.findViewById<TextView>(R.id.currencyValue2)
+            private val currencyValueToday2 = itemView.findViewById<TextView>(R.id.currencyValueToday2)
+            private val currencyValueTomorrow2 = itemView.findViewById<TextView>(R.id
+                .currencyValueTomorrow2)
 
             override fun bindData(rate: CurrencyRateSet) {
                 val ctx = itemView.context
@@ -75,8 +79,20 @@ class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<Rate
                     ctx.getString(R.string.cbrf_rate)
                 currencyName1.text = ctx.getString(R.string.usd)
                 currencyName2.text = ctx.getString(R.string.eur)
-                currencyValue1.text = formatValue(rate.usdRate.rate)
-                currencyValue2.text = formatValue(rate.eurRate.rate)
+                val usdRate = rate.usdRate as CurrencyRate.CbrfCurrencyRate
+                val eurRate = rate.eurRate as CurrencyRate.CbrfCurrencyRate
+
+                currencyValueToday1.text = formatValue(usdRate.rateToday)
+                currencyValueToday2.text = formatValue(eurRate.rateToday)
+                currencyValueTomorrow1.text =
+                    usdRate.rateTomorrow?.let { rateTomorrow ->
+                        formatValue(rateTomorrow)
+                    } ?: "-"
+
+                currencyValueTomorrow2.text =
+                    eurRate.rateTomorrow?.let { rateTomorrow ->
+                        formatValue(rateTomorrow)
+                    } ?: "-"
             }
         }
 
@@ -96,24 +112,28 @@ class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<Rate
                     ctx.getString(R.string.exchange_rate)
                 currencyName1.text = ctx.getString(R.string.usd)
                 currencyName2.text = ctx.getString(R.string.eur)
+                val eurRate = rate.eurRate as CurrencyRate.MoexCurrencyRate
+                val usdRate = rate.usdRate as CurrencyRate.MoexCurrencyRate
                 colorValueWithChange(
                     currencyValue1,
-                    rate.usdRate.change, ctx
+                    usdRate.change, ctx
                 )
                 colorValueWithChange(
                     currencyValue2,
-                    rate.eurRate.change, ctx
+                    eurRate.change, ctx
                 )
-                currencyValue1.text = formatValue(rate.usdRate.rate)
-                currencyValue2.text = formatValue(rate.eurRate.rate)
-                changeValue1.text = formatValue(rate.usdRate.change, needSign = true)
-                changeValue2.text = formatValue(rate.eurRate.change, needSign = true)
+                currencyValue1.text = formatValue(usdRate.rate)
+                currencyValue2.text = formatValue(eurRate.rate)
+                changeValue1.text = formatValue(usdRate.change, needSign = true)
+                changeValue2.text = formatValue(eurRate.change, needSign = true)
 
                 updatedAt.text = String.format(
                     ctx.getString(R.string.updated_at),
                     DateUtils.formatDateTime(ctx, System.currentTimeMillis(),
                         DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME)
                 )
+//                updatedAt.text = "\"Важен не сам курс рубля, а его предсказуемость и " +
+//                    "стабильность\"\n\nВ.В.Путин"
             }
 
             private fun formatValue(number: Float?, needSign: Boolean = false): String? {
