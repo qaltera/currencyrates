@@ -93,6 +93,16 @@ class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<Rate
                     eurRate.rateTomorrow?.let { rateTomorrow ->
                         formatValue(rateTomorrow)
                     } ?: "-"
+
+                colorValueWithChange(
+                    currencyValueTomorrow1,
+                    usdRate.rateTomorrow, usdRate.rateToday, ctx
+                )
+
+                colorValueWithChange(
+                    currencyValueTomorrow2,
+                    eurRate.rateTomorrow, eurRate.rateToday, ctx
+                )
             }
         }
 
@@ -145,6 +155,24 @@ class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<Rate
                     }
                     String.format(pattern, number)
                 }
+            }
+        }
+
+        companion object {
+
+            private fun colorValueWithChange (
+                view: TextView, valueNew: Float?, valueOld: Float?, ctx: Context
+            ) {
+                val change = valueNew?.let { valueNew ->
+                    valueOld?.let { valueOld ->
+                        valueNew - valueOld
+                    }
+                }
+                colorValueWithChange(
+                    view,
+                    change,
+                    ctx
+                )
             }
 
             private fun colorValueWithChange(
