@@ -4,4 +4,6 @@
     <string name="cbrf_rate">Курс ЦБ РФ</string>
     <string name="exchange_rate">Биржевой курс</string>
     <string name="updated_at">Обновлено %s</string>
+    <string name="today">Сегодня</string>
+    <string name="tomorrow">Завтра</string>
 </resources>

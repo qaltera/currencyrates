@@ -5,6 +5,8 @@
     <string name="exchange_rate">MOEX rate</string>
     <string name="usd" translatable="false">USD</string>
     <string name="eur" translatable="false">EUR</string>
+    <string name="today">Today</string>
+    <string name="tomorrow">Tomorrow</string>
 
     <string name="updated_at">Updated at %s</string>
 </resources>

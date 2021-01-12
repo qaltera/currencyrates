@@ -22,7 +22,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:paddingBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/currencyName1"
+            app:layout_constraintBottom_toTopOf="@+id/todayTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -39,7 +39,7 @@
             app:layout_constraintBaseline_toBaselineOf="@id/currencyValueToday1"
             app:layout_constraintEnd_toStartOf="@id/currencyValueToday1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintTop_toBottomOf="@+id/todayTitle"
             tools:text="USD"/>
 
         <TextView
@@ -49,8 +49,8 @@
             android:layout_marginTop="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintStart_toEndOf="@id/currencyName1"
-            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintStart_toStartOf="@+id/todayTitle"
+            app:layout_constraintTop_toBottomOf="@+id/todayTitle"
             app:layout_constraintBottom_toTopOf="@id/currencyName2"
             tools:text="75.00"/>
 
@@ -59,8 +59,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            app:layout_constraintStart_toEndOf="@id/currencyValueToday1"
-            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintStart_toStartOf="@id/tomorrowTitle"
+            app:layout_constraintTop_toBottomOf="@+id/tomorrowTitle"
             app:layout_constraintBottom_toTopOf="@id/currencyName2"
             tools:text="+1.11"
             />
@@ -78,11 +78,40 @@
             tools:text="EUR"/>
 
         <TextView
+            android:id="@+id/todayTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/today"
+            app:layout_constraintStart_toEndOf="@id/currencyName1"
+            app:layout_constraintEnd_toStartOf="@+id/tomorrowTitle"
+            app:layout_constraintBottom_toTopOf="@id/currencyValueToday1"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            tools:text="90.00"
+            />
+
+        <TextView
+            android:id="@+id/tomorrowTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/tomorrow"
+            app:layout_constraintStart_toEndOf="@id/todayTitle"
+            app:layout_constraintBottom_toTopOf="@id/currencyValueTomorrow1"
+            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintBaseline_toBaselineOf="@id/todayTitle"
+            tools:text="90.00"
+            />
+
+        <TextView
             android:id="@+id/currencyValueToday2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            app:layout_constraintStart_toEndOf="@id/currencyName2"
+            android:paddingBottom="8dp"
+            app:layout_constraintStart_toStartOf="@id/todayTitle"
             app:layout_constraintTop_toBottomOf="@id/currencyValueToday1"
             tools:text="90.00"
             />
@@ -91,7 +120,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            app:layout_constraintStart_toEndOf="@id/currencyValueToday2"
+            android:paddingBottom="8dp"
+            app:layout_constraintStart_toStartOf="@id/tomorrowTitle"
             app:layout_constraintTop_toBottomOf="@id/currencyValueToday1"
             tools:text="+0.25"
             />
