@@ -142,8 +142,6 @@ class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<Rate
                     DateUtils.formatDateTime(ctx, System.currentTimeMillis(),
                         DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME)
                 )
-//                updatedAt.text = "\"Важен не сам курс рубля, а его предсказуемость и " +
-//                    "стабильность\"\n\nВ.В.Путин"
             }
 
             private fun formatValue(number: Float?, needSign: Boolean = false): String? {

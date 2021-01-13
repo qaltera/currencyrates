@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.FrameLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar
     private lateinit var ratesList: RecyclerView
     private lateinit var progressBarView: FrameLayout
+    private lateinit var footerTextView: TextView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     private val sdk = RatesSDK(DatabaseDriverFactory(this))
@@ -43,6 +45,7 @@ class MainActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.toolbar)
         progressBarView = findViewById(R.id.progressBar)
         swipeRefreshLayout = findViewById(R.id.swipeContainer)
+        footerTextView = findViewById(R.id.footer)
 
         toolbar.title = title
 
@@ -53,6 +56,8 @@ class MainActivity : AppCompatActivity() {
             swipeRefreshLayout.isRefreshing = false
             displayRates(true)
         }
+        footerTextView.text = "\"Важен не сам курс рубля, а его предсказуемость и " +
+                            "стабильность\"\n\nВ.В.Путин"
 
         displayRates(false)
     }
