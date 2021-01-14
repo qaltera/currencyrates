@@ -36,7 +36,7 @@
             android:layout_marginTop="0dp"
             android:layout_marginEnd="8dp"
             app:layout_constraintBaseline_toBaselineOf="@id/currencyValueToday1"
-            app:layout_constraintEnd_toStartOf="@id/currencyValueToday1"
+            app:layout_constraintEnd_toStartOf="@id/barrierBeforeToday"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/todayTitle"
             tools:text="USD"/>
@@ -48,7 +48,7 @@
             android:layout_marginTop="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintStart_toStartOf="@+id/todayTitle"
+            app:layout_constraintStart_toEndOf="@+id/barrierBeforeToday"
             app:layout_constraintTop_toBottomOf="@+id/todayTitle"
             app:layout_constraintBottom_toTopOf="@id/currencyName2"
             tools:text="75.00"/>
@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            app:layout_constraintStart_toStartOf="@id/tomorrowTitle"
+            app:layout_constraintStart_toEndOf="@id/barrierBeforeTomorrow"
             app:layout_constraintTop_toBottomOf="@+id/tomorrowTitle"
             app:layout_constraintBottom_toTopOf="@id/currencyName2"
             tools:text="+1.11"
@@ -72,7 +72,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBaseline_toBaselineOf="@id/currencyValueToday2"
-            app:layout_constraintEnd_toStartOf="@id/currencyValueToday2"
+            app:layout_constraintEnd_toStartOf="@id/barrierBeforeToday"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/currencyName1"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -86,7 +86,7 @@
             android:layout_marginEnd="8dp"
             android:text="@string/today"
             app:layout_constraintStart_toEndOf="@id/currencyName1"
-            app:layout_constraintEnd_toStartOf="@+id/tomorrowTitle"
+            app:layout_constraintEnd_toStartOf="@+id/barrierBeforeTomorrow"
             app:layout_constraintBottom_toTopOf="@id/currencyValueToday1"
             app:layout_constraintTop_toBottomOf="@id/title"
             tools:text="90.00"
@@ -99,7 +99,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:text="@string/tomorrow"
-            app:layout_constraintStart_toEndOf="@id/todayTitle"
+            app:layout_constraintStart_toEndOf="@id/barrierBeforeTomorrow"
             app:layout_constraintBottom_toTopOf="@id/currencyValueTomorrow1"
             app:layout_constraintTop_toBottomOf="@id/title"
             app:layout_constraintBaseline_toBaselineOf="@id/todayTitle"
@@ -112,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:paddingBottom="8dp"
-            app:layout_constraintStart_toStartOf="@id/todayTitle"
+            app:layout_constraintStart_toEndOf="@id/barrierBeforeToday"
             app:layout_constraintTop_toBottomOf="@id/currencyValueToday1"
             tools:text="90.00"
             />
@@ -122,10 +122,25 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:paddingBottom="8dp"
-            app:layout_constraintStart_toStartOf="@id/tomorrowTitle"
+            app:layout_constraintStart_toEndOf="@id/barrierBeforeTomorrow"
             app:layout_constraintTop_toBottomOf="@id/currencyValueToday1"
             tools:text="+0.25"
             />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierBeforeToday"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:barrierDirection="end"
+            app:constraint_referenced_ids="currencyName1,currencyName2" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrierBeforeTomorrow"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:barrierDirection="end"
+            app:barrierMargin="@dimen/padding_text"
+            app:constraint_referenced_ids="currencyValueToday1,currencyValueToday2,todayTitle" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
