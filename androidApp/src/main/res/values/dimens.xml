@@ -3,4 +3,5 @@
     <dimen name="text_medium">14sp</dimen>
     <dimen name="text_small">12sp</dimen>
     <dimen name="padding_text">8dp</dimen>
+    <dimen name="brent_icon_size">20dp</dimen>
 </resources>

@@ -55,6 +55,7 @@ data class Value(
 data class CurrencyRateSet(
     val usdRate: CurrencyRate,
     val eurRate: CurrencyRate,
+    val brentRate: CurrencyRate?,
     val source: Source
 )
 
@@ -79,7 +80,8 @@ enum class Source(name: String) {
 
 enum class CurrencyName(name: String) {
     USD("usd"),
-    EUR("eur")
+    EUR("eur"),
+    BRENT("brent")
 }
 
 

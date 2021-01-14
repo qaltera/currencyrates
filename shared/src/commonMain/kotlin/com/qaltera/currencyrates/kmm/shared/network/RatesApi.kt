@@ -28,12 +28,19 @@ class RatesApi {
         return httpClient.get(RATES_CBRF_ENDPOINT)
     }
 
+    suspend fun getBrentRates(): MoexMarketDataWrapper {
+        return httpClient.get(RATES_BRENT_ENDPOINT)
+    }
+
     companion object {
         private const val RATES_MOEX_ENDPOINT =
             "https://iss.moex.com/iss/engines/currency/markets/selt/securities.json?iss.only=marketdata&securities=CETS%3AUSD000UTSTOM%2CCETS%3AEUR_RUB__TOM"
 
         private const val RATES_CBRF_ENDPOINT =
             "https://iss.moex.com/iss/statistics/engines/currency/markets/selt/rates.json"
+
+        private const val RATES_BRENT_ENDPOINT =
+            "https://iss.moex.com/iss/engines/futures/markets/forts/securities/BRH1.json?iss.only=marketdata"
     }
 }
 

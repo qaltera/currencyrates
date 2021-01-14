@@ -114,6 +114,9 @@ class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<Rate
             private val currencyValue2 = itemView.findViewById<TextView>(R.id.currencyValue2)
             private val changeValue1 = itemView.findViewById<TextView>(R.id.changeValue1)
             private val changeValue2 = itemView.findViewById<TextView>(R.id.changeValue2)
+            private val currencyValue3 = itemView.findViewById<TextView>(R.id.currencyValue3)
+            private val changeValue3 = itemView.findViewById<TextView>(R.id.changeValue3)
+
             private val updatedAt = itemView.findViewById<TextView>(R.id.updatedAt)
 
             override fun bindData(rate: CurrencyRateSet) {
@@ -124,6 +127,7 @@ class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<Rate
                 currencyName2.text = ctx.getString(R.string.eur)
                 val eurRate = rate.eurRate as CurrencyRate.MoexCurrencyRate
                 val usdRate = rate.usdRate as CurrencyRate.MoexCurrencyRate
+                val brentRate = rate.brentRate as CurrencyRate.MoexCurrencyRate
                 colorValueWithChange(
                     currencyValue1,
                     usdRate.change, ctx
@@ -132,10 +136,16 @@ class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<Rate
                     currencyValue2,
                     eurRate.change, ctx
                 )
+                colorValueWithChange(
+                    currencyValue3,
+                    brentRate.change, ctx
+                )
                 currencyValue1.text = formatValue(usdRate.rate)
                 currencyValue2.text = formatValue(eurRate.rate)
+                currencyValue3.text = formatValue(brentRate.rate)
                 changeValue1.text = formatValue(usdRate.change, needSign = true)
                 changeValue2.text = formatValue(eurRate.change, needSign = true)
+                changeValue3.text = formatValue(brentRate.change, needSign = true)
 
                 updatedAt.text = String.format(
                     ctx.getString(R.string.updated_at),

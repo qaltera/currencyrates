@@ -9,7 +9,6 @@ import com.qaltera.currencyrates.kmm.shared.entity.MarketData
 import com.qaltera.currencyrates.kmm.shared.entity.Source
 import com.qaltera.currencyrates.kmm.shared.network.RatesApi
 import com.soywiz.klock.DateFormat
-import com.soywiz.klock.DateTime
 import com.soywiz.klock.DateTimeTz
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -52,23 +51,30 @@ class RatesSDK(databaseDriverFactory: DatabaseDriverFactory) {
             return runBlocking {
                 val call1 = async { api.getMoexCurrencyRates() }
                 val call2 = async { api.getCbrfCurrencyRates() }
+                val call3 = async { api.getBrentRates() }
                 val moexResponse = call1.await()
                 val cbrfResponse = call2.await()
+                val brentResponse = call3.await()
                 val moexRates =
-                    fromMoexMarketData(moexResponse.marketdata)
+                    fromMoexMarketDataCurrency(moexResponse.marketdata)
 
                 val cbrfRates =
                     fromCbrfMarketData(cbrfResponse.cbrf)
+
+                val brentRate =
+                    fromMoexMarketDataOil(brentResponse.marketdata)
 
                 val result = listOf(
                     CurrencyRateSet(
                         usdRate = cbrfRates[1],
                         eurRate = cbrfRates[0],
+                        null,
                         source = Source.CBRF
                     ),
                     CurrencyRateSet(
                         usdRate = moexRates[1],
                         eurRate = moexRates[0],
+                        brentRate = brentRate,
                         source = Source.MOEX
                     )
                 )
@@ -143,7 +149,7 @@ class RatesSDK(databaseDriverFactory: DatabaseDriverFactory) {
         return Pair(rateToday, rateTomorrow)
     }
 
-    private fun fromMoexMarketData(marketData: MarketData): List<CurrencyRate> {
+    private fun fromMoexMarketDataCurrency(marketData: MarketData): List<CurrencyRate> {
         return marketData.let { marketData ->
             println("size=" + marketData.data[0].size)
             listOf(
@@ -157,6 +163,17 @@ class RatesSDK(databaseDriverFactory: DatabaseDriverFactory) {
                     name = CurrencyName.USD,
                     change = marketData.data[1][28]?.floatValue
                 )
+            )
+        }
+    }
+
+    private fun fromMoexMarketDataOil(marketData: MarketData): CurrencyRate {
+        return marketData.let { marketData ->
+            println("size=" + marketData.data[0].size)
+            CurrencyRate.MoexCurrencyRate(
+                rate = marketData.data[0][8]?.floatValue ?: 0f,
+                name = CurrencyName.BRENT,
+                change = marketData.data[0][10]?.floatValue
             )
         }
     }

@@ -74,7 +74,6 @@
             app:layout_constraintEnd_toStartOf="@id/currencyValue2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/currencyName1"
-            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="EUR"/>
 
         <TextView
@@ -96,6 +95,38 @@
             tools:text="+0.25"
             />
 
+        <ImageView
+            android:id="@+id/currencyIcon3"
+            android:layout_width="@dimen/brent_icon_size"
+            android:layout_height="@dimen/brent_icon_size"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_brent"
+            app:tint="@color/colorPrimaryText"
+            app:layout_constraintEnd_toStartOf="@id/currencyValue3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/currencyName2"
+            app:layout_constraintBottom_toTopOf="@+id/updatedAt"
+            android:layout_margin="8dp"/>
+
+        <TextView
+            android:id="@+id/currencyValue3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toEndOf="@id/currencyIcon3"
+            app:layout_constraintTop_toBottomOf="@id/currencyValue2"
+            tools:text="90.00"
+            />
+        <TextView
+            android:id="@+id/changeValue3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:layout_constraintStart_toEndOf="@id/currencyValue3"
+            app:layout_constraintTop_toBottomOf="@id/currencyValue2"
+            tools:text="+0.25"
+            />
+
         <TextView
             android:id="@+id/updatedAt"
             android:layout_width="0dp"
@@ -105,7 +136,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/currencyName2"
+            app:layout_constraintTop_toBottomOf="@id/currencyIcon3"
             android:textSize="12sp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
