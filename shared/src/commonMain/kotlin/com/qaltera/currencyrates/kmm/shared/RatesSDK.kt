@@ -2,53 +2,37 @@ package com.qaltera.currencyrates.kmm.shared
 
 import com.github.aakira.napier.Napier
 import com.qaltera.currencyrates.kmm.shared.cache.DatabaseDriverFactory
+import com.qaltera.currencyrates.kmm.shared.cache.RatesCache
 import com.qaltera.currencyrates.kmm.shared.entity.CurrencyName
 import com.qaltera.currencyrates.kmm.shared.entity.CurrencyRate
 import com.qaltera.currencyrates.kmm.shared.entity.CurrencyRateSet
 import com.qaltera.currencyrates.kmm.shared.entity.MarketData
 import com.qaltera.currencyrates.kmm.shared.entity.Source
 import com.qaltera.currencyrates.kmm.shared.network.RatesApi
+import com.qaltera.currencyrates.shared.ApplicationInit
 import com.soywiz.klock.DateFormat
 import com.soywiz.klock.DateTimeTz
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 
-class RatesSDK(databaseDriverFactory: DatabaseDriverFactory) {
+object RatesSDK {
 
-    //private val database = Database(databaseDriverFactory)
+    init {
+        ApplicationInit().init()
+    }
+
+    val cache = RatesCache()
+
     private val api = RatesApi()
 
     @Throws(Exception::class) suspend fun getRates(forceReload: Boolean): List<CurrencyRateSet> {
-//        val cachedRates = database.getAllRates()
-//        return if (cachedRates.isNotEmpty() && !forceReload) {
-//            Napier.d("RatesSDK", null, "rates are cached")
-//            val cbrfRates = cachedRates.filter { it.source == Source.CBRF }
-//            val cbrfUsd = cbrfRates.find { it.name == CurrencyName.USD }
-//            val cbrfEur = cbrfRates.find { it.name == CurrencyName.EUR }
-//            val moexRates = cachedRates.filter { it.source == Source.MOEX }
-//            val moexUsd = moexRates.find { it.name == CurrencyName.USD }
-//            val moexEur = moexRates.find { it.name == CurrencyName.EUR }
-//            ArrayList<CurrencyRateSet>().apply {
-//                if (cbrfUsd != null && cbrfEur != null) {
-//                    this.add(
-//                        CurrencyRateSet(
-//                            usdRate = cbrfUsd, eurRate = cbrfEur,
-//                            source = Source.CBRF
-//                        )
-//                    )
-//                }
-//                if (moexUsd != null && moexEur != null) {
-//                    this.add(
-//                        CurrencyRateSet(
-//                            usdRate = moexUsd, eurRate = moexEur,
-//                            source = Source.MOEX
-//                        )
-//                    )
-//                }
-//            }
-//        } else {
-            Napier.d("RatesSDK", null, "requesting rates")
-            return runBlocking {
+
+        val rates = cache.getCachedRates()
+        return if (forceReload || rates == null) {
+            Napier.d("requesting rates", null, "RatesSDK")
+            runBlocking {
                 val call1 = async { api.getMoexCurrencyRates() }
                 val call2 = async { api.getCbrfCurrencyRates() }
                 val call3 = async { api.getBrentRates() }
@@ -78,15 +62,12 @@ class RatesSDK(databaseDriverFactory: DatabaseDriverFactory) {
                         source = Source.MOEX
                     )
                 )
-
-//                database.clearDatabase()
-//                result.forEach { rateSet ->
-//                    database.insertRate(rateSet.usdRate)
-//                    database.insertRate(rateSet.eurRate)
-//                }
-
+                cache.save(result)
                 result
-//            }
+            }
+        } else {
+            Napier.d("using cached rates", null, "RatesSDK")
+            rates
         }
     }
 
@@ -177,21 +158,4 @@ class RatesSDK(databaseDriverFactory: DatabaseDriverFactory) {
             )
         }
     }
-//
-//    @Throws(Exception::class) suspend fun getCurrencyRates():
-//        List<CurrencyRate> {
-//            return api.getCurrencyRates().marketdata.let { marketData ->
-//                println("size=" + marketData.data[0].size)
-//                listOf(
-//                    CurrencyRate(
-//                        marketData.data[0][8]?.floatValue ?: 0f,
-//                        "eur"
-//                    ),
-//                    CurrencyRate(
-//                        marketData.data[1][8]?.floatValue ?: 0f,
-//                        "usd"
-//                    )
-//                )
-//            }
-//    }
 }

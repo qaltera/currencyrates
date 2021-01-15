@@ -29,8 +29,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var footerTextView: TextView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
-    private val sdk = RatesSDK(DatabaseDriverFactory(this))
-
     private val ratesAdapter = RatesAdapter(listOf())
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         progressBarView.isVisible = true
         mainScope.launch {
             kotlin.runCatching {
-                sdk.getRates(needReload)
+                RatesSDK.getRates(needReload)
             }.onSuccess {
                 ratesAdapter.rates = it
                 ratesAdapter.notifyDataSetChanged()
