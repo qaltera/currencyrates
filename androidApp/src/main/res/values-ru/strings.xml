@@ -2,8 +2,10 @@
 <resources>
     <string name="app_name">Курс рубля</string>
     <string name="cbrf_rate">Курс ЦБ РФ</string>
-    <string name="exchange_rate">Биржевой курс</string>
+    <string name="moex_rate">Биржевой курс</string>
     <string name="updated_at">Обновлено %s</string>
     <string name="today">Сегодня</string>
     <string name="tomorrow">Завтра</string>
+    <string name="cbrf_rate_short">ЦБ РФ</string>
+    <string name="moex_rate_short">Биржа</string>
 </resources>

@@ -2,12 +2,15 @@
 <resources>
     <string name="app_name">Rouble rate</string>
     <string name="cbrf_rate">CB RF rate</string>
-    <string name="exchange_rate">MOEX rate</string>
+    <string name="moex_rate">MOEX rate</string>
     <string name="usd" translatable="false">USD</string>
     <string name="eur" translatable="false">EUR</string>
     <string name="brent" translatable="false">Brent</string>
     <string name="today">Today</string>
     <string name="tomorrow">Tomorrow</string>
-
+    <string name="cbrf_rate_short">CB RF</string>
+    <string name="moex_rate_short">MOEX</string>
     <string name="updated_at">Updated at %s</string>
+    <string name="usd_short" translatable="false">$</string>
+    <string name="eur_short" translatable="false">€</string>
 </resources>

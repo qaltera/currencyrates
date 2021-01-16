@@ -122,7 +122,7 @@ class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<Rate
             override fun bindData(rate: CurrencyRateSet) {
                 val ctx = itemView.context
                 currencyTitle.text =
-                    ctx.getString(R.string.exchange_rate)
+                    ctx.getString(R.string.moex_rate)
                 currencyName1.text = ctx.getString(R.string.usd)
                 currencyName2.text = ctx.getString(R.string.eur)
                 val eurRate = rate.eurRate as CurrencyRate.MoexCurrencyRate
