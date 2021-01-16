@@ -115,7 +115,7 @@ object RatesSDK {
         var rateToday: Float? = null
         var rateTomorrow: Float? = null
         usdTradeDate?.let { usdTradeDate ->
-            if (usdTradeDate == dateNow) {
+            if (usdTradeDate <= dateNow) {
                 Napier.d("trade date is today rate=$rate")
                 rateToday = rate
             } else if (usdTradeDate > dateNow) {

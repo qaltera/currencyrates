@@ -5,4 +5,5 @@
     <dimen name="padding_text">8dp</dimen>
     <dimen name="padding_item">16dp</dimen>
     <dimen name="brent_icon_size">20dp</dimen>
+    <dimen name="brent_icon_size_small">14dp</dimen>
 </resources>

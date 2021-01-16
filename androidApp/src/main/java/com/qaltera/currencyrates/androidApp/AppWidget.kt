@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
  * App widget provider class, to handle update broadcast intents and updates
  * for the app widget.
  */
-class AppWidget : AppWidgetProvider() {
+abstract class AppWidget : AppWidgetProvider() {
 
     /**
      * Update a single app widget.  This is a helper method for the standard
@@ -36,89 +36,15 @@ class AppWidget : AppWidgetProvider() {
         GlobalScope.launch {
             kotlin.runCatching {
                 RatesSDK.getRates(forceReload = true)
-            }.onSuccess { rates ->
-                val moexRates = rates.find { it.source == Source.MOEX }
-                val cbrfRates = rates.find { it.source == Source.CBRF }
-                val cbRfUsd = cbrfRates?.usdRate as? CurrencyRate.CbrfCurrencyRate
-                val cbRfEur = cbrfRates?.eurRate as? CurrencyRate.CbrfCurrencyRate
-                val moexUsd = moexRates?.usdRate as? CurrencyRate.MoexCurrencyRate
-                val moexEur = moexRates?.eurRate as? CurrencyRate.MoexCurrencyRate
-
+            }.onSuccess { result ->
+                val rates = AppWidgetUtils.flattenRates(result)
                 val views = RemoteViews(
                     context.packageName,
-                    R.layout.app_widget_cbrf_moex
+                    getLayout()
                 )
 
-                val intent = Intent(context, MainActivity::class.java)
-                val pendingIntent = PendingIntent.getActivity(
-                    context, 0, intent, 0)
-                views.setOnClickPendingIntent(R.id.root, pendingIntent)
-
-                val usdCbrfStr = UiUtils.formatValue(
-                    cbRfUsd?.rateTomorrow ?: cbRfUsd?.rateToday
-                )
-                views.setTextViewText(
-                    R.id.value_usd_cbrf,
-                    usdCbrfStr
-                )
-                val eurCbrfStr = UiUtils.formatValue(
-                    cbRfEur?.rateTomorrow ?: cbRfEur?.rateToday
-                )
-                views.setTextViewText(
-                    R.id.value_eur_cbrf,
-                    eurCbrfStr
-                )
-
-                val colorUsdCbRf = ContextCompat.getColor(
-                    context,
-                    UiUtils.colorIdFromChange(
-                        cbRfUsd?.rateTomorrow,
-                        cbRfUsd?.rateToday
-                    )
-                )
-                views.setTextColor(
-                    R.id.value_usd_cbrf,
-                    colorUsdCbRf
-                )
-
-                val colorEurCbRf = ContextCompat.getColor(
-                    context,
-                    UiUtils.colorIdFromChange(
-                        cbRfEur?.rateTomorrow,
-                        cbRfEur?.rateToday
-                    )
-                )
-                views.setTextColor(
-                    R.id.value_eur_cbrf,
-                    colorEurCbRf
-                )
-
-                views.setTextViewText(
-                    R.id.value_usd_moex,
-                    UiUtils.formatValue(moexUsd?.rate)
-                )
-                views.setTextViewText(
-                    R.id.value_eur_moex,
-                    UiUtils.formatValue(moexEur?.rate)
-                )
-
-                val colorUsdMoex = ContextCompat.getColor(
-                    context,
-                    UiUtils.colorIdFromChange(moexUsd?.change)
-                )
-                views.setTextColor(
-                    R.id.value_usd_moex,
-                    colorUsdMoex
-                )
-
-                val colorEurMoex = ContextCompat.getColor(
-                    context,
-                    UiUtils.colorIdFromChange(moexEur?.change)
-                )
-                views.setTextColor(
-                    R.id.value_eur_moex,
-                    colorEurMoex
-                )
+                AppWidgetUtils.setOpenAppIntent(views, context)
+                updateValues(views, rates, context)
 
                 appWidgetManager.updateAppWidget(appWidgetId, views)
             }.onFailure {
@@ -126,6 +52,11 @@ class AppWidget : AppWidgetProvider() {
             }
         }
     }
+
+    abstract fun getLayout(): Int
+
+    abstract fun updateValues(views: RemoteViews, rates: Rates,
+        context: Context)
 
     /**
      * Override for onUpdate() method, to handle all widget update requests.
