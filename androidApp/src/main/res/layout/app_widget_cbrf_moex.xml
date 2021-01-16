@@ -15,18 +15,23 @@ limitations under the License. -->
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#09C"
+    android:background="@color/colorPrimaryDark"
     android:padding="@dimen/padding_text"
     android:rowCount="3"
-    android:columnCount="2"
+    android:columnCount="3"
     android:useDefaultMargins="true"
     >
+
+    <TextView android:layout_width="1dp"
+        android:layout_height="1dp"
+        style="@style/WidgetText"/>
 
     <TextView
         android:id="@+id/title_cbrf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/cbrf_rate_short"
+        style="@style/WidgetText"
         />
 
     <TextView
@@ -36,30 +41,45 @@ limitations under the License. -->
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:text="@string/moex_rate_short"
+        style="@style/WidgetText"
         />
+
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/usd_short"
+        style="@style/WidgetText"/>
 
     <TextView
         android:id="@+id/value_usd_cbrf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/WidgetText"
         />
 
     <TextView
         android:id="@+id/value_usd_moex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/WidgetText"
         />
+
+    <TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/eur_short"
+        style="@style/WidgetText"/>
 
     <TextView
         android:id="@+id/value_eur_cbrf"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/WidgetText"
         />
 
     <TextView
         android:id="@+id/value_eur_moex"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        style="@style/WidgetText"
         />
 
 </GridLayout>
