@@ -1,11 +1,13 @@
 package com.qaltera.currencyrates.androidApp
 
+import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.widget.RemoteViews
-import com.qaltera.currencyrates.androidApp.R
+import androidx.core.content.ContextCompat
 import com.qaltera.currencyrates.kmm.shared.RatesSDK
 import com.qaltera.currencyrates.kmm.shared.entity.CurrencyRate
 import com.qaltera.currencyrates.kmm.shared.entity.Source
@@ -46,14 +48,78 @@ class AppWidget : AppWidgetProvider() {
                     context.packageName,
                     R.layout.app_widget_cbrf_moex
                 )
-                views.setTextViewText(R.id.value_usd_cbrf,
-                    (cbRfUsd?.rateTomorrow ?: cbRfUsd?.rateToday)?.toString())
-                views.setTextViewText(R.id.value_eur_cbrf,
-                    (cbRfEur?.rateTomorrow ?: cbRfEur?.rateToday)?.toString())
-                views.setTextViewText(R.id.value_usd_moex,
-                    moexUsd?.rate?.toString())
-                views.setTextViewText(R.id.value_eur_moex,
-                    moexEur?.rate?.toString())
+
+                val intent = Intent(context, MainActivity::class.java)
+                val pendingIntent = PendingIntent.getActivity(
+                    context, 0, intent, 0)
+                views.setOnClickPendingIntent(R.id.root, pendingIntent)
+
+                val usdCbrfStr = UiUtils.formatValue(
+                    cbRfUsd?.rateTomorrow ?: cbRfUsd?.rateToday
+                )
+                views.setTextViewText(
+                    R.id.value_usd_cbrf,
+                    usdCbrfStr
+                )
+                val eurCbrfStr = UiUtils.formatValue(
+                    cbRfEur?.rateTomorrow ?: cbRfEur?.rateToday
+                )
+                views.setTextViewText(
+                    R.id.value_eur_cbrf,
+                    eurCbrfStr
+                )
+
+                val colorUsdCbRf = ContextCompat.getColor(
+                    context,
+                    UiUtils.colorIdFromChange(
+                        cbRfUsd?.rateTomorrow,
+                        cbRfUsd?.rateToday
+                    )
+                )
+                views.setTextColor(
+                    R.id.value_usd_cbrf,
+                    colorUsdCbRf
+                )
+
+                val colorEurCbRf = ContextCompat.getColor(
+                    context,
+                    UiUtils.colorIdFromChange(
+                        cbRfEur?.rateTomorrow,
+                        cbRfEur?.rateToday
+                    )
+                )
+                views.setTextColor(
+                    R.id.value_eur_cbrf,
+                    colorEurCbRf
+                )
+
+                views.setTextViewText(
+                    R.id.value_usd_moex,
+                    UiUtils.formatValue(moexUsd?.rate)
+                )
+                views.setTextViewText(
+                    R.id.value_eur_moex,
+                    UiUtils.formatValue(moexEur?.rate)
+                )
+
+                val colorUsdMoex = ContextCompat.getColor(
+                    context,
+                    UiUtils.colorIdFromChange(moexUsd?.change)
+                )
+                views.setTextColor(
+                    R.id.value_usd_moex,
+                    colorUsdMoex
+                )
+
+                val colorEurMoex = ContextCompat.getColor(
+                    context,
+                    UiUtils.colorIdFromChange(moexEur?.change)
+                )
+                views.setTextColor(
+                    R.id.value_eur_moex,
+                    colorEurMoex
+                )
+
                 appWidgetManager.updateAppWidget(appWidgetId, views)
             }.onFailure {
                 Log.e("AppWidget", "error!! ", it)

@@ -46,17 +46,6 @@ class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<Rate
     companion object {
         private const val CBRF_TYPE = 0
         private const val MOEX_TYPE = 1
-
-        private fun formatValue(number: Float?, needSign: Boolean = false): String? {
-            return number?.let {
-                val pattern = if (needSign) {
-                    "%+.2f"
-                } else {
-                    "%.2f"
-                }
-                String.format(pattern, number)
-            }
-        }
     }
 
     sealed class RateViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -82,16 +71,16 @@ class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<Rate
                 val usdRate = rate.usdRate as CurrencyRate.CbrfCurrencyRate
                 val eurRate = rate.eurRate as CurrencyRate.CbrfCurrencyRate
 
-                currencyValueToday1.text = formatValue(usdRate.rateToday)
-                currencyValueToday2.text = formatValue(eurRate.rateToday)
+                currencyValueToday1.text = UiUtils.formatValue(usdRate.rateToday)
+                currencyValueToday2.text = UiUtils.formatValue(eurRate.rateToday)
                 currencyValueTomorrow1.text =
                     usdRate.rateTomorrow?.let { rateTomorrow ->
-                        formatValue(rateTomorrow)
+                        UiUtils.formatValue(rateTomorrow)
                     } ?: "-"
 
                 currencyValueTomorrow2.text =
                     eurRate.rateTomorrow?.let { rateTomorrow ->
-                        formatValue(rateTomorrow)
+                        UiUtils.formatValue(rateTomorrow)
                     } ?: "-"
 
                 colorValueWithChange(
@@ -140,29 +129,18 @@ class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<Rate
                     currencyValue3,
                     brentRate.change, ctx
                 )
-                currencyValue1.text = formatValue(usdRate.rate)
-                currencyValue2.text = formatValue(eurRate.rate)
-                currencyValue3.text = formatValue(brentRate.rate)
-                changeValue1.text = formatValue(usdRate.change, needSign = true)
-                changeValue2.text = formatValue(eurRate.change, needSign = true)
-                changeValue3.text = formatValue(brentRate.change, needSign = true)
+                currencyValue1.text = UiUtils.formatValue(usdRate.rate)
+                currencyValue2.text = UiUtils.formatValue(eurRate.rate)
+                currencyValue3.text = UiUtils.formatValue(brentRate.rate)
+                changeValue1.text = UiUtils.formatValue(usdRate.change, needSign = true)
+                changeValue2.text = UiUtils.formatValue(eurRate.change, needSign = true)
+                changeValue3.text = UiUtils.formatValue(brentRate.change, needSign = true)
 
                 updatedAt.text = String.format(
                     ctx.getString(R.string.updated_at),
                     DateUtils.formatDateTime(ctx, System.currentTimeMillis(),
                         DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_TIME)
                 )
-            }
-
-            private fun formatValue(number: Float?, needSign: Boolean = false): String? {
-                return number?.let {
-                    val pattern = if (needSign) {
-                        "%+.2f"
-                    } else {
-                        "%.2f"
-                    }
-                    String.format(pattern, number)
-                }
             }
         }
 
@@ -186,15 +164,13 @@ class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<Rate
             private fun colorValueWithChange(
                 view: TextView, change: Float?, ctx: Context
             ) {
-                val textColorId = when {
-                    change == null || change == 0F -> R.color.colorPrimaryText
-                    change > 0 -> R.color.green
-                    else -> R.color.red
-                }
+                val textColorId = UiUtils.colorIdFromChange(change)
                 view.setTextColor(
                     ContextCompat.getColor(ctx, textColorId)
                 )
             }
+
+
         }
 
     }
