@@ -1,4 +1,4 @@
-package com.qaltera.currencyrates.androidApp
+package com.qaltera.currencyrates.androidApp.adapters
 
 import android.content.Context
 import android.text.format.DateUtils
@@ -8,14 +8,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.qaltera.currencyrates.androidApp.RatesAdapter.RateViewHolder.CbrfRateViewHolder
-import com.qaltera.currencyrates.androidApp.RatesAdapter.RateViewHolder.MoexRateViewHolder
+import com.qaltera.currencyrates.androidApp.R
+import com.qaltera.currencyrates.androidApp.adapters.RatesAdapter.RateViewHolder.CbrfRateViewHolder
+import com.qaltera.currencyrates.androidApp.adapters.RatesAdapter.RateViewHolder.MoexRateViewHolder
+import com.qaltera.currencyrates.androidApp.utils.UiUtils
 import com.qaltera.currencyrates.kmm.shared.entity.CurrencyRate
 import com.qaltera.currencyrates.kmm.shared.entity.CurrencyRateSet
 import com.qaltera.currencyrates.kmm.shared.entity.Source
 
-class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<RatesAdapter
-.RateViewHolder>() {
+class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<RatesAdapter.RateViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RateViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -55,12 +56,10 @@ class RatesAdapter(var rates: List<CurrencyRateSet>) : RecyclerView.Adapter<Rate
             private val currencyTitle = itemView.findViewById<TextView>(R.id.title)
             private val currencyName1 = itemView.findViewById<TextView>(R.id.currencyName1)
             private val currencyValueToday1 = itemView.findViewById<TextView>(R.id.currencyValueToday1)
-            private val currencyValueTomorrow1 = itemView.findViewById<TextView>(R.id
-                .currencyValueTomorrow1)
+            private val currencyValueTomorrow1 = itemView.findViewById<TextView>(R.id.currencyValueTomorrow1)
             private val currencyName2 = itemView.findViewById<TextView>(R.id.currencyName2)
             private val currencyValueToday2 = itemView.findViewById<TextView>(R.id.currencyValueToday2)
-            private val currencyValueTomorrow2 = itemView.findViewById<TextView>(R.id
-                .currencyValueTomorrow2)
+            private val currencyValueTomorrow2 = itemView.findViewById<TextView>(R.id.currencyValueTomorrow2)
 
             override fun bindData(rate: CurrencyRateSet) {
                 val ctx = itemView.context

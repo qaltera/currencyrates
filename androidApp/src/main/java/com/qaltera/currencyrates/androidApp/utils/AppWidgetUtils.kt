@@ -1,10 +1,13 @@
-package com.qaltera.currencyrates.androidApp
+package com.qaltera.currencyrates.androidApp.utils
 
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
 import androidx.core.content.ContextCompat
+import com.qaltera.currencyrates.androidApp.activity.MainActivity
+import com.qaltera.currencyrates.androidApp.R
+import com.qaltera.currencyrates.androidApp.data.Rates
 import com.qaltera.currencyrates.kmm.shared.entity.CurrencyRate
 import com.qaltera.currencyrates.kmm.shared.entity.CurrencyRateSet
 import com.qaltera.currencyrates.kmm.shared.entity.Source

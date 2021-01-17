@@ -1,7 +1,6 @@
-package com.qaltera.currencyrates.androidApp
+package com.qaltera.currencyrates.androidApp.utils
 
-import android.content.Context
-import android.widget.TextView
+import com.qaltera.currencyrates.androidApp.R
 
 /*
  * ************************************************
@@ -15,7 +14,8 @@ import android.widget.TextView
 
 object UiUtils {
     fun colorIdFromChange(change: Float?,
-     neutralColor: Int = R.color.colorPrimaryText) = when {
+     neutralColor: Int = R.color.colorPrimaryText
+    ) = when {
         change == null || change == 0F -> neutralColor
         change > 0 -> R.color.green
         else -> R.color.red

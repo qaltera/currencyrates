@@ -1,7 +1,10 @@
-package com.qaltera.currencyrates.androidApp
+package com.qaltera.currencyrates.androidApp.appwidget
 
 import android.content.Context
 import android.widget.RemoteViews
+import com.qaltera.currencyrates.androidApp.R
+import com.qaltera.currencyrates.androidApp.data.Rates
+import com.qaltera.currencyrates.androidApp.utils.AppWidgetUtils
 
 /*
  * ************************************************

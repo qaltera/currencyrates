@@ -1,24 +1,25 @@
-package com.qaltera.currencyrates.androidApp
+package com.qaltera.currencyrates.androidApp.activity
 
 import android.graphics.drawable.ColorDrawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.FrameLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.qaltera.currencyrates.androidApp.R
+import com.qaltera.currencyrates.androidApp.adapters.RatesAdapter
 import com.qaltera.currencyrates.kmm.shared.RatesSDK
-import com.qaltera.currencyrates.kmm.shared.cache.DatabaseDriverFactory
 import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
-import androidx.core.view.isVisible
 import kotlinx.coroutines.cancel
-
+import kotlinx.coroutines.launch
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     private val mainScope = MainScope()
@@ -36,8 +37,8 @@ class MainActivity : AppCompatActivity() {
         title = getString(R.string.app_name)
         setContentView(R.layout.activity_main)
         supportActionBar?.setBackgroundDrawable(
-                ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimaryDark))
-            );
+            ColorDrawable(ContextCompat.getColor(this, R.color.colorPrimaryDark))
+        );
 
         ratesList = findViewById(R.id.ratesListRv)
         toolbar = findViewById(R.id.toolbar)
@@ -54,8 +55,9 @@ class MainActivity : AppCompatActivity() {
             swipeRefreshLayout.isRefreshing = false
             displayRates(true)
         }
-        footerTextView.text = "\"Важен не сам курс рубля, а его предсказуемость и " +
-                            "стабильность\"\n\nВ.В.Путин"
+        val quotes = resources.getStringArray(R.array.quotes)
+        val randomIndex: Int = Random.nextInt(quotes.size)
+        footerTextView.text = quotes[randomIndex]
 
         displayRates(false)
     }

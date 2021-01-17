@@ -1,4 +1,4 @@
-package com.qaltera.currencyrates.androidApp
+package com.qaltera.currencyrates.androidApp.data
 
 import com.qaltera.currencyrates.kmm.shared.entity.CurrencyRate
 
